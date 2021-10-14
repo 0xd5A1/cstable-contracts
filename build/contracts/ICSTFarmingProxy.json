@@ -1,0 +1,175 @@
+{
+  "contractName": "ICSTFarmingProxy",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "massUpdate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"massUpdate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/zhangleping/github.com/0x5dA1/cstable-contracts/contracts/interfaces/ICSTFarmingProxy.sol\":\"ICSTFarmingProxy\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/zhangleping/github.com/0x5dA1/cstable-contracts/contracts/interfaces/ICSTFarmingProxy.sol\":{\"keccak256\":\"0x020da05f4006c9ea2a363c566a7e581df96e22fc56e6e0cd7369e62050953c1e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4eca695f07fd099fa587b24398998d9b57bce24dda14f413b2283cb3dd98daaf\",\"dweb:/ipfs/QmbMZMoKjNk3HHwV4DLferAqMLW883WkK118zPiowiSejJ\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\ninterface ICSTFarmingProxy {\n    function massUpdate() external;\n}\n",
+  "sourcePath": "/Users/zhangleping/github.com/0x5dA1/cstable-contracts/contracts/interfaces/ICSTFarmingProxy.sol",
+  "ast": {
+    "absolutePath": "/Users/zhangleping/github.com/0x5dA1/cstable-contracts/contracts/interfaces/ICSTFarmingProxy.sol",
+    "exportedSymbols": {
+      "ICSTFarmingProxy": [
+        6656
+      ]
+    },
+    "id": 6657,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6652,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:8"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 6656,
+        "linearizedBaseContracts": [
+          6656
+        ],
+        "name": "ICSTFarmingProxy",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "9254803a",
+            "id": 6655,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "massUpdate",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6653,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "110:2:8"
+            },
+            "returnParameters": {
+              "id": 6654,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "121:0:8"
+            },
+            "scope": 6656,
+            "src": "91:31:8",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 6657,
+        "src": "58:66:8"
+      }
+    ],
+    "src": "33:92:8"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/zhangleping/github.com/0x5dA1/cstable-contracts/contracts/interfaces/ICSTFarmingProxy.sol",
+    "exportedSymbols": {
+      "ICSTFarmingProxy": [
+        6656
+      ]
+    },
+    "id": 6657,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6652,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:8"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 6656,
+        "linearizedBaseContracts": [
+          6656
+        ],
+        "name": "ICSTFarmingProxy",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "9254803a",
+            "id": 6655,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "massUpdate",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6653,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "110:2:8"
+            },
+            "returnParameters": {
+              "id": 6654,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "121:0:8"
+            },
+            "scope": 6656,
+            "src": "91:31:8",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 6657,
+        "src": "58:66:8"
+      }
+    ],
+    "src": "33:92:8"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.1",
+  "updatedAt": "2021-10-14T08:22:59.710Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
