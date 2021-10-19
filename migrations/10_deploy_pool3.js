@@ -1,6 +1,6 @@
-const BStablePool = artifacts.require("BStablePool");
+const CStablePool = artifacts.require("CStablePool");
 const TokenUSDC = artifacts.require("TokenUSDC");
-const TokenBUSD = artifacts.require("TokenBUSD");
+const TokenCUSD = artifacts.require("TokenCUSD");
 const TokenUSDT = artifacts.require("TokenUSDT");
 const data = require('./conf');
 
@@ -8,7 +8,7 @@ module.exports = function (deployer, network, accounts) {
     let config = data[deployer.network_id];
     let pArr = new Array();
     pArr.push(TokenUSDC.deployed());
-    pArr.push(TokenBUSD.deployed());
+    pArr.push(TokenCUSD.deployed());
     pArr.push(TokenUSDT.deployed());
 
     return Promise.all(pArr).then(tokens => {
@@ -21,7 +21,7 @@ module.exports = function (deployer, network, accounts) {
         let adminFee = config.pool3.adminFee; // 2/3
         let name = config.pool3.name;
         let symbol = config.pool3.symbol;
-        return deployer.deploy(BStablePool, name, symbol, stableCoins, A, fee, adminFee, accounts[0]).then(res => {
+        return deployer.deploy(CStablePool, name, symbol, stableCoins, A, fee, adminFee, accounts[0]).then(res => {
             console.log('constructor[0]:' + name);
             console.log('constructor[1]:' + symbol);
             console.log('constructor[2]:' + JSON.stringify(stableCoins));
