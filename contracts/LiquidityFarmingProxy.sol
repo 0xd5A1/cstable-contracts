@@ -21,7 +21,7 @@ contract LiquidityFarmingProxy is Ownable, ICSTFarmingProxy {
     /// @notice Info of each pool.
     struct PoolInfo {
         IERC20 lpToken; // Address of LP token contract.
-        uint256 accTokenPerShare; // Accumulated BSTs per share, times 1e12. See below.
+        uint256 accTokenPerShare; // Accumulated CSTs per share, times 1e12. See below.
     }
     string public name = "CStable Liquidity Farming Proxy";
     string public symbol = "CLFP-V1";
@@ -68,7 +68,7 @@ contract LiquidityFarmingProxy is Ownable, ICSTFarmingProxy {
         uint256 blockNumber
     );
 
-    constructor(address ownerAddress) public {
+    constructor(address ownerAddress) {
         require(ownerAddress != address(0), "no 0 address");
         transferOwnership(ownerAddress);
     }
@@ -100,7 +100,7 @@ contract LiquidityFarmingProxy is Ownable, ICSTFarmingProxy {
         emit AddPool(address(_lpToken));
     }
 
-    /// @notice Update the given pool's BST allocation point. Can only be called by the owner.
+    /// @notice Update the given pool's CST allocation point. Can only be called by the owner.
     function set(
         uint256 _pid,
         uint256 _allocPoint,
@@ -114,7 +114,7 @@ contract LiquidityFarmingProxy is Ownable, ICSTFarmingProxy {
         emit SetPool(_pid);
     }
 
-    /// @notice View function to see pending BSTs on frontend.
+    /// @notice View function to see pending CSTs on frontend.
     function pendingReward(uint256 _pid, address _user)
         external
         view
@@ -182,7 +182,7 @@ contract LiquidityFarmingProxy is Ownable, ICSTFarmingProxy {
         emit UpdatePool(_pid, pool.accTokenPerShare, tokenReward);
     }
 
-    /// @notice Deposit LP tokens to BStableProxyV2 for BST allocation.
+    /// @notice Deposit LP tokens to BStableProxyV2 for CST allocation.
     function deposit(uint256 _pid, uint256 _amount) public {
         require(
             _pid < poolInfo.length,
@@ -273,7 +273,7 @@ contract LiquidityFarmingProxy is Ownable, ICSTFarmingProxy {
         emit EmergencyWithdraw(msg.sender, _pid, amount_);
     }
 
-    /// @notice Safe token transfer function, just in case if rounding error causes pool to not have enough BSTs.
+    /// @notice Safe token transfer function, just in case if rounding error causes pool to not have enough CSTs.
     function safeTokenTransfer(address _to, uint256 _amount) internal {
         require(_to != address(0), "LiquidityFarmingProxy: no 0 address");
         uint256 tokenBal = token.balanceOf(address(this));

@@ -74,7 +74,7 @@ contract PaymentFarmingProxy is ERC20, Ownable, ICSTFarmingProxy {
         string memory _symbol,
         address _owner,
         address _dev
-    ) public ERC20(_name, _symbol) {
+    ) ERC20(_name, _symbol) {
         require(
             _dev != address(0),
             "PaymentFarmingProxy: _dev can't be 0 address"
@@ -106,7 +106,7 @@ contract PaymentFarmingProxy is ERC20, Ownable, ICSTFarmingProxy {
         bstMinter.set(address(this), _allocPoint);
     }
 
-    /// @dev Mass update pools. Only caller is BSTMinter's massUpdateProxy.
+    /// @dev Mass update pools. Only caller is CSTMinter's massUpdateProxy.
     function massUpdate() public override onlyMinter {
         bstMinter.mint(address(this));
     }

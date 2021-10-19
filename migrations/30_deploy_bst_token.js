@@ -1,13 +1,13 @@
-const BSTToken = artifacts.require("BSTToken");
-const BSTMinter = artifacts.require("BSTMinter");
+const CSTToken = artifacts.require("CSTToken");
+const CSTMinter = artifacts.require("CSTMinter");
 const HuaHuaToken = artifacts.require('HuaHuaToken');
 const data = require('./conf');
 
 module.exports = function (deployer, network, accounts) {
     let config = data[deployer.network_id];
-    return BSTMinter.deployed().then(minter => {
+    return CSTMinter.deployed().then(minter => {
         let perf = investors => {
-            return deployer.deploy(BSTToken, accounts[0], minter.address, investors).then(res => {
+            return deployer.deploy(CSTToken, accounts[0], minter.address, investors).then(res => {
                 console.log('constructor[0]:' + accounts[0]);
                 console.log('constructor[1]:' + minter.address);
                 console.log('constructor[2]:' + JSON.stringify(investors));

@@ -1,9 +1,9 @@
 const TimeLock = artifacts.require("TimeLock");
-const BSTToken = artifacts.require("BSTToken");
+const CSTToken = artifacts.require("CSTToken");
 const data = require('./conf');
 
 module.exports = function (deployer, network, accounts) {
-    return BSTToken.deployed().then(bst => {
+    return CSTToken.deployed().then(bst => {
         let config = data[deployer.network_id];
         let dDay = new Date();
         dDay.setFullYear(config.dDay[0], config.dDay[1], config.dDay[2]);

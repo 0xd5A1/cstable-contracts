@@ -18,8 +18,8 @@ contract TimeLock {
     uint256 public cycle; // cycle already received
     uint256 public hasReward; // Rewards already withdrawn
     address public beneficiary;
-    string public name = "BST Investors Time Lock";
-    string public symbol = "BST-ITL";
+    string public name = "CST Investors Time Lock";
+    string public symbol = "CST-ITL";
 
     event WithDraw(
         address indexed operator,

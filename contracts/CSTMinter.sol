@@ -8,21 +8,21 @@ import "./interfaces/ICSTFarmingProxy.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-/// @title Implement BST's distrubution plan.
+/// @title Implement CST's distrubution plan.
 contract CSTMinter is Ownable {
     using SafeMath for uint256;
 
     /// @notice Info of each pool of proxy.
     struct PoolInfo {
         address pool; // Address of farming contract.
-        uint256 allocPoint; // How many allocation points assigned to this proxy. BSTs to distribute per block.
-        uint256 lastRewardBlock; // Last block number that BSTs distribution occurs.
+        uint256 allocPoint; // How many allocation points assigned to this proxy. CSTs to distribute per block.
+        uint256 lastRewardBlock; // Last block number that CSTs distribution occurs.
     }
     ICSTToken public cstToken;
     /// @notice Dev address.
     address public devaddr;
-    /// @notice BST tokens created per block.
-    uint256 public tokenPerBlock = 6_500_000_000_000_000_000; // 6.5 bst/block
+    /// @notice CST tokens created per block.
+    uint256 public tokenPerBlock = 1_500_000_000_000_000_000; // 6.5 bst/block
     /// @notice Info of each pool of proxy.
     mapping(address => mapping(address => PoolInfo)) public poolInfo;
     /// @notice Save proxy address whether exists.
@@ -35,7 +35,7 @@ contract CSTMinter is Ownable {
     mapping(address => bool) public proxyExists;
     /// @notice Total allocation poitns. Must be the sum of all allocation points in all proxys.
     uint256 public totalAllocPoint = 0;
-    /// @notice The block number when BST mining starts.
+    /// @notice The block number when CST mining starts.
     uint256 public startBlock;
     /// @notice Halving Period in blocks.
     uint256 public halvingPeriod = 2_628_000;
@@ -51,7 +51,7 @@ contract CSTMinter is Ownable {
     event UpdateToken(address _tokenAddress);
     event SetHalvingPeriod(uint256 _block);
     event SetDevAddress(address _dev);
-    event MintBST(
+    event MintCST(
         address proxy,
         address pool,
         uint256 lastRewardBock,
@@ -64,10 +64,10 @@ contract CSTMinter is Ownable {
         address _devaddr,
         uint256 _startBlock,
         address ownerAddress
-    ) public {
+    ) {
         require(
             _devaddr != address(0),
-            "BSTMinter: dev address can't be 0 address"
+            "CSTMinter: dev address can't be 0 address"
         );
         devaddr = _devaddr;
         startBlock = _startBlock;
@@ -75,7 +75,7 @@ contract CSTMinter is Ownable {
     }
 
     function setToken(ICSTToken _token) public onlyOwner {
-        require(address(_token) != address(0), "BSTMinter: no 0 address");
+        require(address(_token) != address(0), "CSTMinter: no 0 address");
         cstToken = _token;
         emit UpdateToken(address(_token));
     }
@@ -88,10 +88,10 @@ contract CSTMinter is Ownable {
     /// @notice Owner should add proxy first, then proxy can add its pools.
     /// @param _farmingProxy Proxy's address
     function addProxy(address _farmingProxy) public onlyOwner {
-        require(_farmingProxy != address(0), "BSTMinter: no 0 address");
+        require(_farmingProxy != address(0), "CSTMinter: no 0 address");
         require(
             !proxyExists[_farmingProxy],
-            "BSTMinter: _farmingProxy is exists."
+            "CSTMinter: _farmingProxy is exists."
         );
         proxyAddresses.push(_farmingProxy);
         proxyExists[_farmingProxy] = true;
@@ -101,11 +101,11 @@ contract CSTMinter is Ownable {
     /// @param _allocPoint Proxy's allocation's weight.
     /// @param _poolAddress A pool of the proxy.
     function add(uint256 _allocPoint, address _poolAddress) public {
-        require(proxyExists[msg.sender], "BSTMinter: only proxy contract");
-        require(_poolAddress != address(0), "BSTMinter: no 0 address");
+        require(proxyExists[msg.sender], "CSTMinter: only proxy contract");
+        require(_poolAddress != address(0), "CSTMinter: no 0 address");
         require(
             !proxyTokens[msg.sender][_poolAddress],
-            "BSTMinter: _farmingProxy and pool already exist"
+            "CSTMinter: _farmingProxy and pool already exist"
         );
         proxyTokens[msg.sender][_poolAddress] = true;
         uint256 lastRewardBlock =
@@ -125,12 +125,12 @@ contract CSTMinter is Ownable {
         );
     }
 
-    /// @notice Update the given proxy's BST allocation point. Can only be called by the owner.
+    /// @notice Update the given proxy's CST allocation point. Can only be called by the owner.
     /// @param _poolAddress A pool of the proxy.
     /// @param _allocPoint Proxy's allocation's weight.
     function set(address _poolAddress, uint256 _allocPoint) public {
-        require(proxyExists[msg.sender], "BSTMinter: only proxy contract");
-        require(_poolAddress != address(0), "BSTMinter: no 0 address");
+        require(proxyExists[msg.sender], "CSTMinter: only proxy contract");
+        require(_poolAddress != address(0), "CSTMinter: no 0 address");
         totalAllocPoint = totalAllocPoint
             .sub(poolInfo[msg.sender][_poolAddress].allocPoint)
             .add(_allocPoint);
@@ -150,7 +150,7 @@ contract CSTMinter is Ownable {
     }
 
     function massUpdateProxy() public {
-        require(proxyExists[msg.sender], "BSTMinter: only proxy contract");
+        require(proxyExists[msg.sender], "CSTMinter: only proxy contract");
         for (uint256 i; i < proxyAddresses.length; i++) {
             ICSTFarmingProxy(proxyAddresses[i]).massUpdate();
         }
@@ -238,14 +238,14 @@ contract CSTMinter is Ownable {
         cstToken.mint(devaddr, tokenReward.div(10));
         cstToken.mint(_pid, tokenReward);
         pInfo.lastRewardBlock = block.number;
-        emit MintBST(_pid, _pool, _lastRewardBlock, block.number, tokenReward);
+        emit MintCST(_pid, _pool, _lastRewardBlock, block.number, tokenReward);
         return tokenReward;
     }
 
     /// @dev Update pool's lastRewardBlock to block.number
     /// @param pool Pool's address
     function updateLastRewardBlock(address pool) public {
-        require(proxyTokens[msg.sender][pool], "BSTMinter: only farmingProxy");
+        require(proxyTokens[msg.sender][pool], "CSTMinter: only farmingProxy");
         PoolInfo storage pInfo = poolInfo[msg.sender][pool];
         uint256 _lastRewardBlock = pInfo.lastRewardBlock;
         uint256 _lastPhase = _phase(_lastRewardBlock);
@@ -259,10 +259,10 @@ contract CSTMinter is Ownable {
     /// @notice mint bst according options
     /// @param pool pool's address.
     function mint(address pool) external returns (uint256) {
-        require(proxyExists[msg.sender], "BSTMinter: only proxy contract");
+        require(proxyExists[msg.sender], "CSTMinter: only proxy contract");
         require(
             proxyTokens[msg.sender][pool],
-            "BSTMinter: proxy and pool no exists."
+            "CSTMinter: proxy and pool no exists."
         );
         return mint_(msg.sender, pool);
     }
@@ -271,7 +271,7 @@ contract CSTMinter is Ownable {
     function dev(address _devaddr) public onlyOwner {
         require(
             _devaddr != address(0),
-            "BSTMinter: dev address can't be 0 address"
+            "CSTMinter: dev address can't be 0 address"
         );
         devaddr = _devaddr;
         emit SetDevAddress(_devaddr);

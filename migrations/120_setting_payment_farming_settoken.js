@@ -1,9 +1,9 @@
 const PaymentFarmingProxy = artifacts.require("PaymentFarmingProxy");
-const BSTToken = artifacts.require("BSTToken");
+const CSTToken = artifacts.require("CSTToken");
 
 module.exports = function (deployer, network, accounts) {
 
-    return BSTToken.deployed().then(bst => {
+    return CSTToken.deployed().then(bst => {
         return PaymentFarmingProxy.deployed().then(payment => {
             return payment.setToken(bst.address);
         });

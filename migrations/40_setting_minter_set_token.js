@@ -1,11 +1,11 @@
-const BSTToken = artifacts.require("BSTToken");
-const BSTMinter = artifacts.require("BSTMinter");
+const CSTToken = artifacts.require("CSTToken");
+const CSTMinter = artifacts.require("CSTMinter");
 const data = require('./conf');
 
 module.exports = function (deployer, network, accounts) {
     let config = data[deployer.network_id];
-    return BSTMinter.deployed().then(minter => {
-        return BSTToken.deployed().then(bst => {
+    return CSTMinter.deployed().then(minter => {
+        return CSTToken.deployed().then(bst => {
             return minter.setToken(bst.address);
         });
     }).catch(e=>{
