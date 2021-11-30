@@ -110,3 +110,4 @@ secret.js
 */**/conf.js
 
 .vscode
+test/config.ts
