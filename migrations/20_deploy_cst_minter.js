@@ -9,7 +9,7 @@ module.exports = function (deployer, network, accounts) {
         dDay.setFullYear(config.dDay[0], config.dDay[1], config.dDay[2]);
         dDay.setHours(config.hours[0], config.hours[1], config.hours[2], config.hours[3]);
         let now = new Date();
-        let blocks = Math.floor((Math.floor(dDay.getTime() / 1000) - Math.floor(now.getTime() / 1000)) / 3);
+        let blocks = Math.floor((Math.floor(dDay.getTime() / 1000) - Math.floor(now.getTime() / 1000)) / 5);
         return web3.eth.getBlock('latest').then(latestBlock => {
             let startBlock = latestBlock.number + blocks; // farming will start 
             return deployer.deploy(CSTMinter, dev, startBlock, accounts[0]).then(res => {
