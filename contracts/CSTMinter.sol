@@ -22,7 +22,7 @@ contract CSTMinter is Ownable {
     /// @notice Dev address.
     address public devaddr;
     /// @notice CST tokens created per block.
-    uint256 public tokenPerBlock = 1_500_000_000_000_000_000; // 6.5 bst/block
+    uint256 public tokenPerBlock = 10_833_333_333_333_333_333; // 10.833333 cst/block
     /// @notice Info of each pool of proxy.
     mapping(address => mapping(address => PoolInfo)) public poolInfo;
     /// @notice Save proxy address whether exists.
