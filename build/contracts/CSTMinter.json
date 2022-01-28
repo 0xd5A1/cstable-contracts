@@ -31848,6 +31848,164 @@
       "address": "0xaf5C4C6C7920B4883bC6252e9d9B8fE27187Cf68",
       "transactionHash": "0xa37183bcf450c1a5375453458e0043958932ed3e7476329df164f42895af0421"
     },
+    "42220": {
+      "events": {
+        "0xf71a1cf713493adc37f71c7d6c1c55f4eda92143cf51154fa7c122364479dc26": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "proxy",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "pool",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "lastRewardBock",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "blockNumber",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "MintCST",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        "0xb545e03e7c97cbab287b0da6d423a267b59c9f995c3643cabcac101c3ef24001": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "pool",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "phase",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "totalSupply",
+              "type": "uint256"
+            }
+          ],
+          "name": "PhaseChanged",
+          "type": "event"
+        },
+        "0xf5721dfa6ddbf8e4a2cd38b2152fff4008050b9b37de59ae1e022dde4bd5df73": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "_dev",
+              "type": "address"
+            }
+          ],
+          "name": "SetDevAddress",
+          "type": "event"
+        },
+        "0xdb8133c1736203fccafd8f3ae73892ac1d758c62a986ff6c4b5f5a5221798f27": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "_block",
+              "type": "uint256"
+            }
+          ],
+          "name": "SetHalvingPeriod",
+          "type": "event"
+        },
+        "0x126d7aa7b49e00d079095d0ec1a490ed23bb2c9c9e9343a00dd07aa1a5543cb0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "_farmingProxy",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "_pool",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "_allocPoint",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "_totalAllocPoint",
+              "type": "uint256"
+            }
+          ],
+          "name": "UpdateProxyInfo",
+          "type": "event"
+        },
+        "0xc94c224579611362c1287bb3e82a13fbd4a04dd97c05e9fc3acf9a8c62194adb": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "_tokenAddress",
+              "type": "address"
+            }
+          ],
+          "name": "UpdateToken",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xcf1cADD0cf7070F62689Cd4E356A9Bf64220C66B",
+      "transactionHash": "0xaf185643af233bfe0aadb8408bdd3fe04adf3d925fc40bd321971a81ef416af4"
+    },
     "44787": {
       "events": {
         "0xf71a1cf713493adc37f71c7d6c1c55f4eda92143cf51154fa7c122364479dc26": {
@@ -32008,7 +32166,7 @@
     }
   },
   "schemaVersion": "3.4.1",
-  "updatedAt": "2022-01-27T07:28:51.298Z",
+  "updatedAt": "2022-01-28T06:23:34.615Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
