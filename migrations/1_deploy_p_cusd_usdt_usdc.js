@@ -9,9 +9,7 @@ module.exports = function (deployer, network, accounts) {
 	let adminFee = config.pool.adminFee; // 2/3
 	let name = config.pool.name;
 	let symbol = config.pool.symbol;
-	return deployer.deploy(CStablePool, name, symbol, stableCoins, A, fee, adminFee, accounts[0]).then(res => {
-		console.log('constructor[0]:' + name);
-		console.log('constructor[1]:' + symbol);
+	return deployer.deploy(CStablePool, stableCoins, A, fee, adminFee, accounts[0]).then(res => {
 		console.log('constructor[2]:' + JSON.stringify(stableCoins));
 		console.log('constructor[3]:' + A);
 		console.log('constructor[4]:' + fee);

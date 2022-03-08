@@ -15,11 +15,11 @@ contract CStablePool is ERC20, Ownable, ReentrancyGuard {
     uint256 private FEE_DENOMINATOR = 10**10;
     uint256 private LENDING_PRECISION = 10**18;
     uint256 private PRECISION = 10**18; // The precision to convert to
-    uint256[] private PRECISION_MUL = [1, 1, 1];
+    uint256[] private PRECISION_MUL = [1, 1000000000000, 1000000000000];
     uint256[] private RATES = [
         1000000000000000000,
-        1000000000000000000,
-        1000000000000000000
+        1000000000000000000000000000000,
+        1000000000000000000000000000000
     ];
     uint256 private FEE_INDEX = 2; // Which coin may potentially have fees (USDT)
 
@@ -115,14 +115,12 @@ contract CStablePool is ERC20, Ownable, ReentrancyGuard {
     event RevertNewParameters();
 
     constructor(
-        string memory _name,
-        string memory _symbol,
         address[] memory _coins,
         uint256 _a,
         uint256 _fee,
         uint256 _admin_fee,
         address ownerAddress
-    )  ERC20(_name, _symbol) {
+    ) ERC20("CStable Pool (CUSD / USDT / USDC)", "CSLP-01") {
         transferOwnership(ownerAddress);
         for (uint256 i = 0; i < _coins.length; i++) {
             require(_coins[i] != address(0), "BNB is not support.");
@@ -223,12 +221,13 @@ contract CStablePool is ERC20, Ownable, ReentrancyGuard {
             }
             Dprev = D;
             // D = (Ann * S + D_P * coins.length) * D / ((Ann - 1) * D + (coins.length + 1) * D_P)
-            uint256 numerator =
-                Ann.mul(S).add(D_P.mul(uint256(coins.length))).mul(D);
-            uint256 denominator =
-                Ann.sub(uint256(1)).mul(D).add(
-                    uint256(coins.length).add(uint256(1)).mul(D_P)
-                );
+            uint256 numerator = Ann
+                .mul(S)
+                .add(D_P.mul(uint256(coins.length)))
+                .mul(D);
+            uint256 denominator = Ann.sub(uint256(1)).mul(D).add(
+                uint256(coins.length).add(uint256(1)).mul(D_P)
+            );
             D = numerator.div(denominator);
             // Equality with the precision of 1
             if (D > Dprev) {
@@ -303,10 +302,9 @@ contract CStablePool is ERC20, Ownable, ReentrancyGuard {
         require(!is_killed, "is killed");
         uint256[] memory fees = new uint256[](coins.length);
         // _fee: uint256 = self.fee * coins.length / (4 * (coins.length - 1))
-        uint256 _fee =
-            fee.mul(coins.length).div(
-                uint256(4).mul(uint256(coins.length).sub(uint256(1)))
-            );
+        uint256 _fee = fee.mul(coins.length).div(
+            uint256(4).mul(uint256(coins.length).sub(uint256(1)))
+        );
         uint256 amp = _A();
 
         // # Initial invariant
@@ -712,10 +710,9 @@ contract CStablePool is ERC20, Ownable, ReentrancyGuard {
         // # * Solve Eqn against y_i for D - _token_amount
         uint256 amp = _A();
         // _fee: uint256 = self.fee * coins.length / (4 * (coins.length - 1))
-        uint256 _fee =
-            fee.mul(coins.length).div(
-                uint256(4).mul(uint256(coins.length).sub(uint256(1)))
-            );
+        uint256 _fee = fee.mul(coins.length).div(
+            uint256(4).mul(uint256(coins.length).sub(uint256(1)))
+        );
 
         uint256[] memory xp = _xp();
 
