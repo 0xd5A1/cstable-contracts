@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./interfaces/ICSTMinter.sol";
 import "./interfaces/ICStablePool.sol";
 import "./interfaces/ICSTToken.sol";
@@ -164,12 +165,21 @@ contract PaymentFarmingProxy is ERC20, Ownable, ICSTFarmingProxy {
             amt <= IERC20(receiptToken).balanceOf(msg.sender),
             "Payment: insufficient balance."
         );
+        uint256 decimals = ERC20(receiptToken).decimals();
         bstMinter.mint(address(this));
         uint256 fee = amt.mul(paymentFee).div(10**18);
         UserInfo storage user = userInfo[msg.sender];
-        user.quantity = user.quantity.add(amt.sub(fee));
+        user.quantity = user.quantity.add(
+            amt.mul(10**18).div(10**decimals).sub(
+                fee.mul(10**18).div(10**decimals)
+            )
+        );
         userInfo[msg.sender].blockNumber = block.number;
-        totalQuantity = totalQuantity.add(amt.sub(fee));
+        totalQuantity = totalQuantity.add(
+            amt.mul(10**18).div(10**decimals).sub(
+                fee.mul(10**18).div(10**decimals)
+            )
+        );
         TransferHelper.safeTransferFrom(
             receiptToken,
             msg.sender,
@@ -212,10 +222,15 @@ contract PaymentFarmingProxy is ERC20, Ownable, ICSTFarmingProxy {
             _originalBalance
         );
         require(returnAmt >= receiptAmt, "Payment: swap amt insufficient.");
+        uint256 decimals = ERC20(receiptToken).decimals();
         UserInfo storage user = userInfo[msg.sender];
-        user.quantity = user.quantity.add(receiptAmt);
+        user.quantity = user.quantity.add(
+            receiptAmt.mul(10**18).div(10**decimals)
+        );
         userInfo[msg.sender].blockNumber = block.number;
-        totalQuantity = totalQuantity.add(receiptAmt);
+        totalQuantity = totalQuantity.add(
+            receiptAmt.mul(10**18).div(10**decimals)
+        );
         TransferHelper.safeTransfer(receiptToken, receipt, receiptAmt);
         TransferHelper.safeTransfer(
             receiptToken,
